@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %} Products List {% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<table class="table">
+<thead>
+    <tr>
+    <th>Product</th>
+    <th>Price</th>
+    <th>Stock</th>
+    <th>Action</th>
+    </tr>
+</thead>
+<tbody>
+    {% for product in products %}
+        <tr>
+        <td scope="row">{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.stock }}</td>
+        <td><a href="{% url 'product_detail' product.id %}" class="fa fa-eye" aria-hidden="true"> Ver </a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<h2>El valor de todos los productos es {{ suma }} </h2>
+{% else %}
+    <h5>Usted no se encuentra logeado para acceder</h5>
+{% endif %}
+
+{% endblock %}
