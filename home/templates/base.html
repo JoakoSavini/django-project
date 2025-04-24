@@ -11,7 +11,8 @@
 </head>
 <body>
         <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Home</a>
+            <a class="navbar-brand" href="{% url 'index' %}">Home</a>
+            {% if user.is_authenticated %}
             <li>
                 <a href="{% url 'product_list' %}">Products</a>
             </li>
@@ -21,6 +22,11 @@
             <li>
                 <a  href="{% url 'order_list' %}">Pedidos</a>
             </li>
+            <a class="btn btn-danger" href=" {% url 'logout' %} "> Cerrar sesión </a>
+            {% else %}
+                <a class="btn btn-primary" href=" {% url 'login' %} "> Login </a>
+                <a class="btn btn-secondary" href=" {% url 'register' %} "> Registrarse </a>
+            {% endif %}
         </nav>
 
         {% if messages %}

@@ -1,8 +1,13 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login, logout
 from products.models import Customer
 from django.contrib import messages
+from django.shortcuts import render, redirect
 
 # Create your views here.
+
+""" vista del home """
+def home_view(request):
+    return render(request, 'index.html')
 
 def register_view(request):
     if request.method == 'POST':
@@ -36,6 +41,33 @@ def register_view(request):
         request,
         'accounts/register.html',
         )
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        """ verifico su existencia """
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
+        """ logeo """
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Sesión Iniciada")
+            return redirect('index')
+        else:
+            messages.error(request, "El usuario o Contraseña no coinciden")
+
+    return render(request, "accounts/login.html")
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login') 
+
 
 """ esta logica va en un repo aparte """
 def _validate_pass(password1, password2):
