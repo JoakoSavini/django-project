@@ -3,6 +3,7 @@
 {% block title %} Home Page {% endblock  %}
 
 {% block content %}
+<h4> {{ current_hour }} </h4>
 <div class="jumbotron">
     <h1 class="display-4">Bienvenido</h1>
     <p class="lead">Este es un sistema para manejar datos internos</p>
@@ -19,7 +20,7 @@
     </p>
     {% else %}
     <p class="lead">
-        <a class="btn btn-primary btn-lg" href="{% url 'products' %}" role="button">Productos</a>
+        <a class="btn btn-primary btn-lg" href="{% url 'product_list' %}" role="button">Productos</a>
     </p>
     {% endif %}
 </div>
